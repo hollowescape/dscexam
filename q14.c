@@ -4,22 +4,24 @@
 #define TRUE 1
 #define FALSE 0
 
+typedef struct node *nodepointer;
 typedef struct node
 {
-    struct node *link;
+     nodepointer link;
     int vertex;
 }node;
  
-node *G[20];   
-node *front, *rear;
+ 
+nodepointer G[20];   
+nodepointer front, rear;
 	
 int visited[20];
-int n;
+int n,x;
  
 void addq(int v)
 { 
-	node* temp, *ptr;
-	temp=(node*)malloc(sizeof(node));
+	nodepointer temp, ptr;
+	temp=(nodepointer)malloc(sizeof(node));
 	temp->link=NULL;
 	temp->vertex=v;
 	if(front==NULL)
@@ -32,16 +34,16 @@ void addq(int v)
 int deleteq()
 { 
 	int a;
-	node* temp=front;
+	nodepointer temp=front;
 	a=temp->vertex;
-	temp=temp->link;
-	front=temp;
+	front=temp->link;
+	free(temp);
 	return a;
 }
 
 void BFS(int v)
 {
-    node *p;
+    nodepointer p;
 	printf("\n%5d",v);
     visited[v]=TRUE;
 	addq(v);
@@ -63,8 +65,8 @@ void BFS(int v)
  
 void insert(int vi,int vj)
 {
-    node *p,*q;
-    q=(node*)malloc(sizeof(node));
+    nodepointer p,q;
+    q=(nodepointer)malloc(sizeof(node));
     q->vertex=vj;
     q->link=NULL;
     if(G[vi]==NULL)
@@ -89,6 +91,10 @@ void read_graph()
     {
         printf("Enter an edge(u,v):");
 		scanf("%d%d",&vi,&vj);
+		if(i==0)
+		{
+			x=vi;
+		}
 		insert(vi,vj);
     }
 }
@@ -101,6 +107,6 @@ int main()
    	for(i=0;i<n;i++)
         visited[i]=FALSE;
 	printf("\n\nNodes visited in BFS order\n");
-    BFS(0);
+    BFS(x);
 	return 0;
 }

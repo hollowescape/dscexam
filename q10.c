@@ -40,7 +40,7 @@ void ddelete()
     }
 }
 
-void display()
+void displayfront()
 {
 	nodePtr temp;
 	if (head->rlink == head)
@@ -48,6 +48,20 @@ void display()
 	else 
 	{ 
 		for(temp=head->rlink; temp->rlink != head; temp = temp->rlink)
+			printf("%d\t", temp->data);
+		printf("%d\t", temp->data);
+		printf("\n\n");
+	}
+}
+
+void displayreverse()
+{
+	nodePtr temp;
+	if (head->rlink == head)
+		printf("Empty list.\n");
+	else 
+	{ 
+		for(temp=head->llink; temp->llink != head; temp = temp->llink)
 			printf("%d\t", temp->data);
 		printf("%d\t", temp->data);
 		printf("\n\n");
@@ -63,7 +77,7 @@ int main()
 	
 	while(1)
 	{
-		printf("1:insert a node in DLL \n2:delete a node from DLL \n3:display the DLL\n4:exit\n");
+		printf("1:insert a node in DLL \n2:delete a node from DLL \n3:display the DLL\n4:display reverse\n 5.exit");
 		scanf("%u", &choice);
 		switch(choice)
 		{
@@ -71,9 +85,11 @@ int main()
 					break;
 			case 2: ddelete();
 					break;
-			case 3: display();
+			case 3: displayfront();
 					break;
-			case 4: exit(0);
+			case 4: displayreverse();
+					break;
+			case 5: exit(0);
 					break;
 			default: printf("Invalid choice... try again\n");
 		}
